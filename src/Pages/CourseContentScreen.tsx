@@ -19,7 +19,7 @@ const CourseContentScreen = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/course-request/', {
+      const response = await fetch('https://backend-lrndise.azurewebsites.net/api/course-request/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
