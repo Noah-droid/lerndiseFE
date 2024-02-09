@@ -10,6 +10,7 @@ import DesktopLayout from "../Layouts/DesktopLayout";
 
 const CourseContentScreen = () => {
   const [selectedCourse, setSelectedCourse] = useState(0); // Initialize selectedCourse state
+  const [generatedContent, setGeneratedContent] = useState(null); // Initialize generatedContent state
 
   const handleCourseChange = (e) => {
     setSelectedCourse(parseInt(e.target.value));
@@ -30,6 +31,9 @@ const CourseContentScreen = () => {
       if (!response.ok) {
         throw new Error('Failed to submit course content');
       }
+
+      const data = await response.json();
+      setGeneratedContent(data.generated_content);
 
       // Handle success, maybe redirect to another page or show a success message
       console.log('Course content submitted successfully!');
@@ -52,7 +56,7 @@ const CourseContentScreen = () => {
             {/* Dropdown menu for selecting the course */}
             <div>
               <label htmlFor="course">Select Course:</label><br />
-              <select id="course" name="course" value={selectedCourse} onChange={handleCourseChange}>
+              <select id="course" name="course" value={selectedCourse} onChange={handleCourseChange} className="mt-2 border border-gray-300 rounded-md p-2">
                 <option value={1}>Course 1</option>
                 <option value={2}>Course 2</option>
                 <option value={3}>Course 3</option>
@@ -61,8 +65,8 @@ const CourseContentScreen = () => {
             </div>
             {/* Rest of the form */}
             {/* ... */}
-            <div className="flex gap-x-6">
-              <button type="submit">Save as draft</button>
+            <div className="flex gap-x-6 mt-4">
+              <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Generate</button>
               <Link className="w-1/2" to="/courseReview">
                 <ButtonHalf skin="lerndis-black-pearl" color="white" width="full">
                   Next
@@ -71,6 +75,14 @@ const CourseContentScreen = () => {
             </div>
           </form>
         </div>
+        {/* Display the generated content */}
+        {generatedContent && (
+          <div className="ml-[24px] mr-[45px] bg-gray-100 border border-gray-300 rounded-md p-4 mt-4">
+            <h2 className="text-lg font-semibold mb-2">Generated Content</h2>
+            {/* Render the generated content here */}
+            <p className="text-gray-700">{generatedContent}</p>
+          </div>
+        )}
       </div>
     </DesktopLayout>
   );

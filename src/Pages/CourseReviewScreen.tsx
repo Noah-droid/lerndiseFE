@@ -15,14 +15,15 @@ const CourseReviewScreen = () => {
   }, []);
 
   const fetchGeneratedCourse = async () => {
-    // Simulating fetching generated course content from an API
-    // Replace this with actual fetch call to your API
-    const response = await fetch('http://127.0.0.1:8000/api/course-request/');
-    if (response.ok) {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/course-request/');
+      if (!response.ok) {
+        throw new Error('Failed to fetch generated course content');
+      }
       const data = await response.json();
       setGeneratedCourse(data);
-    } else {
-      console.error('Failed to fetch generated course content');
+    } catch (error) {
+      console.error(error.message);
     }
   };
 
@@ -45,13 +46,13 @@ const CourseReviewScreen = () => {
             />
             <div className="font-body">
               <HeadingParagraphyBase
-                heading="Family: Everything family should know"
-                paragraph="Social Studies"
+                heading={generatedCourse.course || ""}
+                paragraph="Social Studies" // You can update this as needed
               />
               <h2 className="text-base text-lerndis-blue">Introduction</h2>
               <p className="text-lerndis-light-grey text-sm/[24px]">
                 {/* Render the generated introduction here */}
-                {generatedCourse.introduction}
+                {generatedCourse.generated_content?.introduction || "No introduction available"}
               </p>
             </div>
           </div>
