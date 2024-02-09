@@ -25,7 +25,7 @@ const AddCourseScreen = () => {
     e.preventDefault();
     console.log('FormData:', formData); // Log the formData before making the API call
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/courses/', {
+      const response = await fetch('https://backend-lrndise.azurewebsites.net/api/courses/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
