@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import Form from '../Components/Forms/Form';
-import InputFile from '../Components/Forms/InputFile';
-import LabelTextInput from '../Components/Forms/LabelTextInput';
 import DesktopProfileBar from '../Components/ProfileBars/DesktopProfileBar';
 import HeadingParagraphy from '../Components/Text/HeadingParagraphy';
 import DesktopLayout from '../Layouts/DesktopLayout';
@@ -25,7 +22,7 @@ const AddCourseScreen = () => {
     e.preventDefault();
     console.log('FormData:', formData); // Log the formData before making the API call
     try {
-      const response = await fetch('https://backend-lrndise.azurewebsites.net/api/courses/', {
+      const response = await fetch('http://127.0.0.1:8000/api/courses/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -47,33 +44,28 @@ const AddCourseScreen = () => {
 
   return (
     <DesktopLayout>
-      <div>
+      <div className="ml-[24px] mr-[45px]">
         <DesktopProfileBar />
-        <div className="ml-[24px] mr-[45px]">
+        <div className="mt-6">
           <HeadingParagraphy
             heading="Add a New Course"
             paragraph="Kindly provide all the information required below."
           />
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="mt-4 space-y-4">
             <div>
-              <label htmlFor="title">Course:</label><br />
-              <input type="text" id="title" name="title" placeholder="Social Studies" value={formData.title} onChange={handleChange} required /><br />
+              <label htmlFor="title" className="block text-sm font-medium text-gray-700">Course:</label>
+              <input type="text" id="title" name="title" placeholder="Social Studies" value={formData.title} onChange={handleChange} required className="mt-1 px-4 py-2 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
             </div>
             <div>
-              <label htmlFor="description">Course Topic:</label><br />
-              <input type="text" id="description" name="description" placeholder="Family: Everything you should know" value={formData.description} onChange={handleChange} required /><br />
+              <label htmlFor="description" className="block text-sm font-medium text-gray-700">Course Topic:</label>
+              <input type="text" id="description" name="description" placeholder="Family: Everything you should know" value={formData.description} onChange={handleChange} required className="mt-1 px-4 py-2 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
             </div>
             <div>
-              <label htmlFor="introduction">Introduction:</label><br />
-              <textarea id="introduction" name="introduction" placeholder="Write a brief course introduction" value={formData.introduction} onChange={handleChange} ></textarea><br />
+              <label htmlFor="introduction" className="block text-sm font-medium text-gray-700">Introduction:</label>
+              <textarea id="introduction" name="introduction" placeholder="Write a brief course introduction" value={formData.introduction} onChange={handleChange} className="mt-1 px-4 py-2 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea>
             </div>
-            <div className="flex gap-x-6">
-              <button type="submit">Save as draft</button>
-              {/* <Link className="w-1/2" to="/createContent">
-                <ButtonHalf skin="lerndis-black-pearl" color="white" width="full">
-                  Next
-                </ButtonHalf>
-              </Link> */}
+            <div className="flex gap-x-6 mt-6">
+              <button type="submit" className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Save as draft</button>
             </div>
           </form>
         </div>
